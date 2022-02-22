@@ -26,6 +26,7 @@ public class restController {
 
     @PostMapping("/test")
     public void generateTestData(){
+        repo.deleteAll();
         ArrayList<Todo> newTodos = new ArrayList<>();
         Todo nTodo = new Todo("Test 1", "Das ist ein Test", StateEnum.DOING);
         nTodo.setDateSting("1644415439976");
