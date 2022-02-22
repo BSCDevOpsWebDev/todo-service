@@ -23,7 +23,7 @@ public class Todo {
     private Date date;
     @NonNull
     @Column(name = "state")
-    private StateEnum sate;
+    private StateEnum state;
 
     public void setDateSting(String date){
         Date dDate = new Date();

@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Locale;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(value = "*")
 public class restController {
 
     @Autowired
@@ -22,14 +24,24 @@ public class restController {
         return ret.map(ResponseEntity::ok).orElseGet(() -> (ResponseEntity<Todo>) ResponseEntity.notFound());
     }
 
+//    @GetMapping("/todos")
+//    public Iterable<Todo> getTodos(){
+//        return repo.findAll();
+//    }
+
     @GetMapping("/todos")
-    public Iterable<Todo> getTodos(){
-        return repo.findAll();
+    public Iterable<Todo> getTodosFiltered(@RequestParam(required = false) Optional<String> state){
+        if(state.isPresent()){
+            StateEnum stateEnum = StateEnum.valueOf(state.get().toUpperCase());
+            return repo.findByState(stateEnum);
+        }else{
+            return repo.findAll();
+        }
     }
 
     @PostMapping("/todo")
     public void addTodo(@RequestParam(value="name") String name, @RequestParam(value="description") String description, @RequestParam(value = "date") String date, @RequestParam(value = "state") String state){
-        Todo newTodo = new Todo(name, description, StateEnum.valueOf(state));
+        Todo newTodo = new Todo(name, description, StateEnum.valueOf(state.toUpperCase()));
         newTodo.setDateSting(date);
         repo.save(newTodo);
     }
@@ -53,7 +65,7 @@ public class restController {
             toEdit.setDateSting(date);
         }
         if(!state.isEmpty()){
-            toEdit.setSate(StateEnum.valueOf(state));
+            toEdit.setState(StateEnum.valueOf(state));
         }
         repo.save(toEdit);
     }

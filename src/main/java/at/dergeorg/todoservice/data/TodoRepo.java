@@ -1,5 +1,6 @@
 package at.dergeorg.todoservice.data;
 
+import at.dergeorg.todoservice.model.StateEnum;
 import at.dergeorg.todoservice.model.Todo;
 import org.springframework.data.repository.CrudRepository;
 
@@ -9,4 +10,6 @@ public interface TodoRepo extends CrudRepository<Todo, Integer> {
 
     @Override
     Optional<Todo> findById(Integer integer);
+
+    Iterable<Todo> findByState(StateEnum stateEnum);
 }
