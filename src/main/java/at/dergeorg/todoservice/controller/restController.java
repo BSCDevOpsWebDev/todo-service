@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Locale;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -24,10 +24,29 @@ public class restController {
         return ret.map(ResponseEntity::ok).orElseGet(() -> (ResponseEntity<Todo>) ResponseEntity.notFound());
     }
 
-//    @GetMapping("/todos")
-//    public Iterable<Todo> getTodos(){
-//        return repo.findAll();
-//    }
+    @PostMapping("/test")
+    public void generateTestData(){
+        ArrayList<Todo> newTodos = new ArrayList<>();
+        Todo nTodo = new Todo("Test 1", "Das ist ein Test", StateEnum.DOING);
+        nTodo.setDateSting("1644415439976");
+        newTodos.add(nTodo);
+        nTodo = new Todo("Test 2", "Das ist ein Test 2", StateEnum.DOING);
+        nTodo.setDateSting("1644415439976");
+        newTodos.add(nTodo);
+        nTodo = new Todo("Test 3", "Das ist ein Test 3", StateEnum.DONE);
+        nTodo.setDateSting("1644415439976");
+        newTodos.add(nTodo);
+        nTodo = new Todo("Test 4", "Das ist ein Test 4", StateEnum.DONE);
+        nTodo.setDateSting("1644415439976");
+        newTodos.add(nTodo);
+        nTodo = new Todo("Test 5", "Das ist ein Test 5", StateEnum.TODO);
+        nTodo.setDateSting("1644415439976");
+        newTodos.add(nTodo);
+        nTodo = new Todo("Test 6", "Das ist ein Test 6", StateEnum.TODO);
+        nTodo.setDateSting("1644415439976");
+        newTodos.add(nTodo);
+        repo.saveAll(newTodos);
+    }
 
     @GetMapping("/todos")
     public Iterable<Todo> getTodosFiltered(@RequestParam(required = false) Optional<String> state){
