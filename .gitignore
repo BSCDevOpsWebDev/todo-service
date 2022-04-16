@@ -2,9 +2,7 @@ application.properties
 application.yaml
 application.yml
 
-
 .mvn/
-
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
