@@ -1,0 +1,14 @@
+spring:
+    application:
+        name: todo-service
+    profiles:
+        active: default
+    config:
+        import: configserver:http://${CONFIGURL:localhost:9997}/todo-config
+eureka:
+    client:
+        service-url:
+            defaultZone: http://${HOSTNAME:localhost}:${EUREKAPORT:8761}/eureka
+    instance:
+        instance-id: ${spring.application.name}:${random.value}
+    prefer-ip-address: true
