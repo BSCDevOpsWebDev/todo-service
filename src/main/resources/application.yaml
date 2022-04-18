@@ -4,7 +4,7 @@ spring:
     profiles:
         active: default
     config:
-        import: configserver:http://${CONFIGURL:localhost:9997}/todo-config
+        import: configserver:${http}://${CONFIGUSER:admin:admin@}${CONFIGURL:localhost:9997}/todo-config
 eureka:
     client:
         service-url:
