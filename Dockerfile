@@ -14,4 +14,4 @@ WORKDIR /opt/app
 COPY ${JAR_FILE} app.jar
 
 # java -jar /opt/app/app.jar
-ENTRYPOINT ["java", "-Dspring.HOSTNAME=${HOSTNAME}", "-Dspring.EUREKAPORT=${EUREKAPORT}", "-Dspring.CONFIGPORT=${CONFIGPORT}", "-Dspring.CONFIGURL=${CONFIG_URL}", "-Dspring.CONFIGUSER=${CONFIGUSER}", "-Dspring.CONFIGHTTP=${CONFIGHTTP}", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Dspring.HOSTNAME=${HOSTNAME}", "-Dspring.EUREKAPORT=${EUREKAPORT}", "-Dspring.CONFIGPORT=${CONFIGPORT}", "-DCONFIGURL=${CONFIG_URL}", "-Dspring.CONFIGUSER=${CONFIGUSER}", "-Dspring.CONFIGHTTP=${CONFIGHTTP}", "-jar", "app.jar"]
