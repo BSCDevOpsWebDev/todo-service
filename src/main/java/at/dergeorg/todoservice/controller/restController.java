@@ -15,7 +15,6 @@ import java.util.Optional;
 @CrossOrigin(value = "*")
 public class restController {
 
-    @Autowired
     private TodoRepo repo;
 
     @GetMapping("/todo/{id}")
