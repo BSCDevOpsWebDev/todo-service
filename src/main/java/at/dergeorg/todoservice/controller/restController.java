@@ -26,24 +26,25 @@ public class restController {
 
     @PostMapping("/test")
     public void generateTestData(){
+        repo.deleteAll();
         ArrayList<Todo> newTodos = new ArrayList<>();
         Todo nTodo = new Todo("Test 1", "Das ist ein Test", StateEnum.DOING);
         nTodo.setDateSting("1644415439976");
         newTodos.add(nTodo);
         nTodo = new Todo("Test 2", "Das ist ein Test 2", StateEnum.DOING);
-        nTodo.setDateSting("1644415439976");
+        nTodo.setDateSting("1645570800000");
         newTodos.add(nTodo);
         nTodo = new Todo("Test 3", "Das ist ein Test 3", StateEnum.DONE);
-        nTodo.setDateSting("1644415439976");
+        nTodo.setDateSting("1647903600000");
         newTodos.add(nTodo);
         nTodo = new Todo("Test 4", "Das ist ein Test 4", StateEnum.DONE);
-        nTodo.setDateSting("1644415439976");
+        nTodo.setDateSting("1644102000000");
         newTodos.add(nTodo);
         nTodo = new Todo("Test 5", "Das ist ein Test 5", StateEnum.TODO);
-        nTodo.setDateSting("1644415439976");
+        nTodo.setDateSting("1647730800000");
         newTodos.add(nTodo);
         nTodo = new Todo("Test 6", "Das ist ein Test 6", StateEnum.TODO);
-        nTodo.setDateSting("1644415439976");
+        nTodo.setDateSting("1647298800000");
         newTodos.add(nTodo);
         repo.saveAll(newTodos);
     }
@@ -73,19 +74,22 @@ public class restController {
     @PutMapping("/todo/{id}")
     public void editTodo(@PathVariable("id") int id, @RequestParam(value="name") String name, @RequestParam(value="description") String description, @RequestParam(value = "date") String date, @RequestParam(value = "state") String state){
         Optional<Todo> optionalToEdit = repo.findById(id);
-        Todo toEdit = optionalToEdit.get();
-        if(!name.isEmpty()){
-            toEdit.setName(name);
+        if(optionalToEdit.isPresent()) {
+            Todo toEdit = optionalToEdit.get();
+            if (!name.isEmpty()) {
+                toEdit.setName(name);
+            }
+            if (!description.isEmpty()) {
+                toEdit.setDescription(description);
+            }
+            if (!date.isEmpty()) {
+                toEdit.setDateSting(date);
+                System.out.println(date);
+            }
+            if (!state.isEmpty()) {
+                toEdit.setState(StateEnum.valueOf(state));
+            }
+            repo.save(toEdit);
         }
-        if(!description.isEmpty()){
-            toEdit.setDescription(description);
-        }
-        if(!date.isEmpty()){
-            toEdit.setDateSting(date);
-        }
-        if(!state.isEmpty()){
-            toEdit.setState(StateEnum.valueOf(state));
-        }
-        repo.save(toEdit);
     }
 }
